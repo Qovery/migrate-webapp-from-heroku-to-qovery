@@ -37,6 +37,7 @@ const PORT = process.env.PORT || 8080;
  */
 const run = async () => {
   await client.connect();
+  await client.query(`CREATE TABLE IF NOT EXISTS TASKS (DESCRIPTION TEXT NOT NULL);`);
 
   app.listen(PORT, () => {
     console.log(`Server Started on PORT ${PORT}`);
@@ -57,7 +58,7 @@ app.get('/', async (req, res) => {
       tasks: result.rows
     };
     res.render('main', alltasks);
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     res.status(500).end(e.toString());
   }
@@ -75,7 +76,7 @@ app.post('/task', async (req, res) => {
     await client.query(
       `INSERT INTO tasks (DESCRIPTION) VALUES ('${taskDescription}')`);
     res.redirect('/');
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     res.sendStatus(500);
   }
