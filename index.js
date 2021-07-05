@@ -27,7 +27,7 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
-const config = parse(process.env.DATABASE_URL);
+const config = parse(process.env.QOVERY_DATABASE_MY_POSTGRESQL_URL);
 const client = new Client(config);
 const PORT = process.env.PORT || 8080;
 
